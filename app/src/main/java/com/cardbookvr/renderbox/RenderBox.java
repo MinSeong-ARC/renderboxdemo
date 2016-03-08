@@ -52,6 +52,7 @@ public class RenderBox implements CardboardView.StereoRenderer {
 
     @Override
     public void onNewFrame(HeadTransform headTransform) {
+        Time.update();
         headTransform.getHeadView(headView, 0);
         headTransform.getEulerAngles(headAngles, 0);
         mainCamera.onNewFrame();
