@@ -6,6 +6,7 @@ import android.opengl.GLU;
 import android.util.Log;
 
 import com.cardbookvr.renderbox.components.Camera;
+import com.cardbookvr.renderbox.components.Light;
 import com.cardbookvr.renderbox.components.RenderObject;
 import com.cardbookvr.renderbox.materials.VertexColorMaterial;
 import com.google.vrtoolkit.cardboard.CardboardView;
@@ -32,6 +33,8 @@ public class RenderBox implements CardboardView.StereoRenderer {
     IRenderBox callbacks;
 
     public static Camera mainCamera;
+    public Light mainLight;
+
     public static final float[] headView = new float[16];
     public static final float[] headAngles = new float[3];
 
@@ -42,6 +45,8 @@ public class RenderBox implements CardboardView.StereoRenderer {
         this.mainActivity = mainActivity;
         this.callbacks = callbacks;
         mainCamera = new Camera();
+        mainLight = new Light();
+        new Transform().addComponent(mainLight);
     }
 
     @Override
