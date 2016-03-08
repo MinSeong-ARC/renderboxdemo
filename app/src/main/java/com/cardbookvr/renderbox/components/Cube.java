@@ -97,7 +97,7 @@ public class Cube extends RenderObject {
 
     public void createMaterial(){
         VertexColorMaterial mat = new VertexColorMaterial();
-        vcm.setBuffers(vertexBuffer, colorBuffer, numIndices);
+        mat.setBuffers(vertexBuffer, colorBuffer, numIndices);
         material = mat;
     }
 
