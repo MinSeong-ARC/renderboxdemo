@@ -1,5 +1,6 @@
 package com.cardbookvr.renderbox.components;
 
+import com.cardbookvr.renderbox.materials.VertexColorLightingMaterial;
 import com.cardbookvr.renderbox.materials.VertexColorMaterial;
 
 import java.nio.FloatBuffer;
@@ -120,7 +121,7 @@ public class Cube extends RenderObject {
     public Cube createMaterial(boolean lighting){
         if(lighting){
             VertexColorLightingMaterial mat = new VertexColorLightingMaterial();
-            mat.setBuffers(cubeVertices, cubeColors, cubeNormals, 36);
+            mat.setBuffers(vertexBuffer, colorBuffer, normalBuffer, 36);
             material = mat;
         } else {
             VertexColorMaterial mat = new VertexColorMaterial();

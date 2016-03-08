@@ -27,7 +27,7 @@ public class MainActivity extends CardboardActivity implements IRenderBox {
     @Override
     public void setup() {
         cube = new Transform();
-        cube.addComponent(new Cube());
+        cube.addComponent(new Cube(true));
         cube.setLocalPosition(2.0f, -2.f, 5.0f);
     }
 

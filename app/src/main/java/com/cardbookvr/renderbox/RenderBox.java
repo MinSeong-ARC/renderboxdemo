@@ -8,6 +8,7 @@ import android.util.Log;
 import com.cardbookvr.renderbox.components.Camera;
 import com.cardbookvr.renderbox.components.Light;
 import com.cardbookvr.renderbox.components.RenderObject;
+import com.cardbookvr.renderbox.materials.VertexColorLightingMaterial;
 import com.cardbookvr.renderbox.materials.VertexColorMaterial;
 import com.google.vrtoolkit.cardboard.CardboardView;
 import com.google.vrtoolkit.cardboard.Eye;
@@ -104,6 +105,7 @@ public class RenderBox implements CardboardView.StereoRenderer {
      */
     public static void reset(){
         VertexColorMaterial.destroy();
+        VertexColorLightingMaterial.destroy();
     }
 
 }
