@@ -5,7 +5,9 @@ import android.opengl.GLES20;
 import android.opengl.GLU;
 import android.util.Log;
 
+import com.cardbookvr.renderbox.components.Camera;
 import com.cardbookvr.renderbox.components.RenderObject;
+import com.cardbookvr.renderbox.materials.VertexColorMaterial;
 import com.google.vrtoolkit.cardboard.CardboardView;
 import com.google.vrtoolkit.cardboard.Eye;
 import com.google.vrtoolkit.cardboard.HeadTransform;
@@ -29,22 +31,31 @@ public class RenderBox implements CardboardView.StereoRenderer {
     public Activity mainActivity;
     IRenderBox callbacks;
 
+    public static Camera mainCamera;
+    public static final float[] headView = new float[16];
+    public static final float[] headAngles = new float[3];
+
     public List<RenderObject> renderObjects = new ArrayList<RenderObject>();
 
     public RenderBox(Activity mainActivity, IRenderBox callbacks){
         instance = this;
         this.mainActivity = mainActivity;
         this.callbacks = callbacks;
+        mainCamera = new Camera();
     }
 
     @Override
     public void onNewFrame(HeadTransform headTransform) {
-
+        headTransform.getHeadView(headView, 0);
+        headTransform.getEulerAngles(headAngles, 0);
+        mainCamera.onNewFrame();
     }
 
     @Override
     public void onDrawEye(Eye eye) {
-
+        callbacks.preDraw();
+        mainCamera.onDrawEye(eye);
+        callbacks.postDraw();
     }
 
     @Override
@@ -59,7 +70,10 @@ public class RenderBox implements CardboardView.StereoRenderer {
 
     @Override
     public void onSurfaceCreated(EGLConfig eglConfig) {
-
+        RenderBox.reset();
+        GLES20.glClearColor(0.1f, 0.1f, 0.1f, 0.5f);
+        checkGLError("onSurfaceCreated");
+        callbacks.setup();
     }
 
     @Override
@@ -78,6 +92,13 @@ public class RenderBox implements CardboardView.StereoRenderer {
             Log.e(TAG, errorText);
             throw new RuntimeException(errorText);
         }
+    }
+
+    /**
+     * Used to "clean up" compiled shaders, which have to be recompiled for a "fresh" activity
+     */
+    public static void reset(){
+        VertexColorMaterial.destroy();
     }
 
 }
