@@ -5,10 +5,14 @@ import android.opengl.GLES20;
 import android.opengl.GLU;
 import android.util.Log;
 
+import com.cardbookvr.renderbox.components.RenderObject;
 import com.google.vrtoolkit.cardboard.CardboardView;
 import com.google.vrtoolkit.cardboard.Eye;
 import com.google.vrtoolkit.cardboard.HeadTransform;
 import com.google.vrtoolkit.cardboard.Viewport;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.microedition.khronos.egl.EGLConfig;
 
@@ -24,6 +28,8 @@ public class RenderBox implements CardboardView.StereoRenderer {
     public static RenderBox instance;
     public Activity mainActivity;
     IRenderBox callbacks;
+
+    public List<RenderObject> renderObjects = new ArrayList<RenderObject>();
 
     public RenderBox(Activity mainActivity, IRenderBox callbacks){
         instance = this;
