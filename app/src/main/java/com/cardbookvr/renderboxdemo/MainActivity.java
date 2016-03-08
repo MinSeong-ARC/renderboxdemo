@@ -22,7 +22,7 @@ public class MainActivity extends CardboardActivity implements IRenderBox {
 
     @Override
     public void setup() {
-        
+
     }
 
     @Override
