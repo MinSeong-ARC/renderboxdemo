@@ -45,6 +45,9 @@ public class Camera extends Component {
         // Apply the eye transformation to the camera.
         Matrix.multiplyMM(view, 0, eye.getEyeView(), 0, camera, 0);
 
+        // Compute lighting position
+        RenderBox.instance.mainLight.onDraw(view);
+
         // Build the ModelView and ModelViewProjection matrices
         float[] perspective = eye.getPerspective(Z_NEAR, Z_FAR);
 
