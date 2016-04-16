@@ -73,14 +73,36 @@ public class Cube extends RenderObject {
             0.84f,  0.18f,  0.13f, 1.0f
     };
 
+    public static final float[] CUBE_NORMALS_FACES = new float[] {
+            // Front face
+            0.0f, 0.0f, 1.0f,
+            // Right face
+            1.0f, 0.0f, 0.0f,
+            // Back face
+            0.0f, 0.0f, -1.0f,
+            // Left face
+            -1.0f, 0.0f, 0.0f,
+            // Top face
+            0.0f, 1.0f, 0.0f,
+            // Bottom face
+            0.0f, -1.0f, 0.0f,
+    };
+
+
     public static FloatBuffer vertexBuffer;
     public static FloatBuffer colorBuffer;
+    public static FloatBuffer normalBuffer;
     public static final int numIndices = 36;
 
     public Cube(){
         super();
         allocateBuffers();
-        createMaterial();
+    }
+
+    public Cube(boolean lighting){
+        super();
+        allocateBuffers();
+        createMaterial(lighting);
     }
 
     public static void allocateBuffers(){
@@ -89,12 +111,20 @@ public class Cube extends RenderObject {
             return;
         vertexBuffer = allocateFloatBuffer(CUBE_COORDS);
         colorBuffer = allocateFloatBuffer(cubeFacesToArray(CUBE_COLORS_FACES, 4));
+        normalBuffer = allocateFloatBuffer(cubeFacesToArray(CUBE_NORMALS_FACES, 3) );
     }
 
-    public void createMaterial(){
-        VertexColorMaterial mat = new VertexColorMaterial();
-        mat.setBuffers(vertexBuffer, colorBuffer, numIndices);
-        material = mat;
+    public Cube createMaterial(boolean lighting){
+        if(lighting){
+            VertexColorLightingMaterial mat = new VertexColorLightingMaterial();
+            mat.setBuffers(vertexBuffer, colorBuffer, normalBuffer, 36);
+            material = mat;
+        } else {
+            VertexColorMaterial mat = new VertexColorMaterial();
+            mat.setBuffers(vertexBuffer, colorBuffer, numIndices);
+            material = mat;
+        }
+        return this;
     }
 
 
