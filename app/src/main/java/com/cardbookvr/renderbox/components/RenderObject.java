@@ -1,5 +1,7 @@
 package com.cardbookvr.renderbox.components;
 
+import android.opengl.Matrix;
+
 import com.cardbookvr.renderbox.RenderBox;
 import com.cardbookvr.renderbox.materials.Material;
 
@@ -17,6 +19,11 @@ public abstract class RenderObject extends Component {
     protected Material material;
     public static float[] model;
     public static float[] lightingModel;
+
+    public boolean isLooking;
+    private static final float YAW_LIMIT = 0.15f;
+    private static final float PITCH_LIMIT = 0.15f;
+    final float[] modelView = new float[16];
 
     public RenderObject(){
         super();
@@ -55,6 +62,21 @@ public abstract class RenderObject extends Component {
         //Compute position every frame in case it changed
         transform.drawMatrices();
         material.draw(view, perspective);
+        isLooking = isLookingAtObject();
+    }
+
+    private boolean isLookingAtObject() {
+        float[] initVec = { 0, 0, 0, 1.0f };
+        float[] objPositionVec = new float[4];
+
+        // Convert object space to camera space. Use the headView from onNewFrame.
+        Matrix.multiplyMM(modelView, 0, RenderBox.headView, 0, model, 0);
+        Matrix.multiplyMV(objPositionVec, 0, modelView, 0, initVec, 0);
+
+        float pitch = (float) Math.atan2(objPositionVec[1], -objPositionVec[2]);
+        float yaw = (float) Math.atan2(objPositionVec[0], -objPositionVec[2]);
+
+        return Math.abs(pitch) < PITCH_LIMIT && Math.abs(yaw) < YAW_LIMIT;
     }
 
 }

@@ -1,6 +1,7 @@
 package com.cardbookvr.renderboxdemo;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import com.cardbookvr.renderbox.IRenderBox;
 import com.cardbookvr.renderbox.RenderBox;
@@ -11,8 +12,10 @@ import com.google.vrtoolkit.cardboard.CardboardActivity;
 import com.google.vrtoolkit.cardboard.CardboardView;
 
 public class MainActivity extends CardboardActivity implements IRenderBox {
+    private static final String TAG = "MainActivity";
 
     Transform cube;
+    Cube cubeObject;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +31,8 @@ public class MainActivity extends CardboardActivity implements IRenderBox {
     @Override
     public void setup() {
         cube = new Transform();
-        cube.addComponent(new Cube(true));
+        cubeObject = new Cube(true);
+        cube.addComponent(cubeObject);
         cube.setLocalPosition(2.0f, -2.f, -5.0f);
     }
 
@@ -40,6 +44,8 @@ public class MainActivity extends CardboardActivity implements IRenderBox {
 
     @Override
     public void postDraw() {
-
+        if (cubeObject.isLooking) {
+            Log.d(TAG, "isLooking at Cube");
+        }
     }
 }
