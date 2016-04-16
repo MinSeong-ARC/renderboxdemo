@@ -1,5 +1,6 @@
 package com.cardbookvr.renderbox.components;
 
+import com.cardbookvr.renderbox.materials.VertexColorLightingMaterial;
 import com.cardbookvr.renderbox.materials.VertexColorMaterial;
 
 import java.nio.FloatBuffer;
