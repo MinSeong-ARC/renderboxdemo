@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import com.cardbookvr.renderbox.IRenderBox;
 import com.cardbookvr.renderbox.RenderBox;
+import com.cardbookvr.renderbox.Time;
 import com.cardbookvr.renderbox.Transform;
 import com.cardbookvr.renderbox.components.Cube;
 import com.google.vrtoolkit.cardboard.CardboardActivity;
@@ -33,7 +34,8 @@ public class MainActivity extends CardboardActivity implements IRenderBox {
 
     @Override
     public void preDraw() {
-
+        float dt = Time.getDeltaTime();
+        cube.rotate(dt * 5, dt * 10, dt * 7.5f);
     }
 
     @Override

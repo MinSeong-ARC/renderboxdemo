@@ -44,10 +44,12 @@ public class RenderBox implements CardboardView.StereoRenderer {
         instance = this;
         this.mainActivity = mainActivity;
         this.callbacks = callbacks;
+        Time.start();
     }
 
     @Override
     public void onNewFrame(HeadTransform headTransform) {
+        Time.update();
         headTransform.getHeadView(headView, 0);
         headTransform.getEulerAngles(headAngles, 0);
         mainCamera.onNewFrame();
