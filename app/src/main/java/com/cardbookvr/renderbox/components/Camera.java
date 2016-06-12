@@ -6,7 +6,7 @@ import android.opengl.Matrix;
 import com.cardbookvr.renderbox.RenderBox;
 import com.cardbookvr.renderbox.Transform;
 import com.cardbookvr.renderbox.math.Vector3;
-import com.google.vrtoolkit.cardboard.Eye;
+import com.google.vr.sdk.base.Eye;
 
 /**
  * Created by Schoen and Jonathan on 4/16/2016.

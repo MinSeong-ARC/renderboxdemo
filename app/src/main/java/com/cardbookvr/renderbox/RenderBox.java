@@ -10,10 +10,10 @@ import com.cardbookvr.renderbox.components.Light;
 import com.cardbookvr.renderbox.components.RenderObject;
 import com.cardbookvr.renderbox.materials.VertexColorLightingMaterial;
 import com.cardbookvr.renderbox.materials.VertexColorMaterial;
-import com.google.vrtoolkit.cardboard.CardboardView;
-import com.google.vrtoolkit.cardboard.Eye;
-import com.google.vrtoolkit.cardboard.HeadTransform;
-import com.google.vrtoolkit.cardboard.Viewport;
+import com.google.vr.sdk.base.Eye;
+import com.google.vr.sdk.base.GvrView;
+import com.google.vr.sdk.base.HeadTransform;
+import com.google.vr.sdk.base.Viewport;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +23,7 @@ import javax.microedition.khronos.egl.EGLConfig;
 /**
  * Created by Schoen and Jonathan on 4/16/2016.
  */
-public class RenderBox implements CardboardView.StereoRenderer {
+public class RenderBox implements GvrView.StereoRenderer {
     private static final String TAG = "RenderBox";
 
     public static RenderBox instance;
